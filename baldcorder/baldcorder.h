@@ -46,12 +46,6 @@ struct touch_buttons {
 	bool pressed_once=false;
 } buttons[4];
 
-/*
-Adafruit_FreeTouch touch_up = Adafruit_FreeTouch(A2, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_down = Adafruit_FreeTouch(A3, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_okay = Adafruit_FreeTouch(A4, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_cancel = Adafruit_FreeTouch(A5, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);*/
-
 int touch_threshold = 700;
 
 // ****************************
