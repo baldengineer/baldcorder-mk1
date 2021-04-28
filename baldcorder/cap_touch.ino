@@ -1,7 +1,7 @@
 /* Created by James Lewis, 2021
 For element14 Present's Build Inside the Box Competiton
 MIT License
-Please see Acknowledgements.md for additional acks.
+Please see Acknowledgements.md for detailed acks.
 */
 
 /*
@@ -34,19 +34,6 @@ void init_cap_touch() {
 		} 
 	}
 	Serial.println(F("...done"));
-/*
-  Serial.println(F("Init FreeTouch..."));
-  if (! touch_up.begin())
-    Serial.println(F("Failed to begin qt for up"));
-  if (! touch_down.begin())
-    Serial.println(F("Fail5d to begin qt for down"));
-  if (! touch_okay.begin())
-    Serial.println(F("Failed to begin qt for okay"));
-  if (! touch_cancel.begin())
-    Serial.println(F("Failed to begin qt for cancel"));
-  Serial.println(F("done."));	
-
-*/
 }
 
 void process_touch() {

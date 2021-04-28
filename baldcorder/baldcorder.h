@@ -5,11 +5,13 @@ Please see Acknowledgements.md for additional acks.
 */
 
 // ****************************
-// General Libraries
+// General
 // ****************************
 #include <Wire.h>
 #include <SPI.h>
 #include <avr/dtostrf.h>
+
+bool power_state = true;
 
 // ****************************
 // Sound Libraries
@@ -31,6 +33,13 @@ unsigned long scanning_sound_interval = (1000UL * 60UL * 10UL);
 // VL53L0X
 // ****************************
 #include "Adafruit_VL53L0X.h"
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+unsigned long last_prox_check = 0;
+unsigned long prox_check_interval = 1000;
+long prox_reading = 0; // -1 is out of range
+unsigned long prox_closed_threshold = 50;
+
+
 
 // ****************************
 // Capacitive Touch

@@ -1,3 +1,9 @@
+/* Created by James Lewis, 2021
+For element14 Present's Build Inside the Box Competiton
+MIT License
+Please see Acknowledgements.md for detailed acks.
+*/
+
 void init_gndn_blinky() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP

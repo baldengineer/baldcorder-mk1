@@ -1,7 +1,7 @@
 /* Created by James Lewis, 2021
 For element14 Present's Build Inside the Box Competiton
 MIT License
-Please see Acknowledgements.md for additional acks.
+Please see Acknowledgements.md for detailed acks.
 */
 
 #include "baldcorder.h"
@@ -46,23 +46,27 @@ void setup() {
 	// TODO: Up there, that one!!
 	init_oled64(); 	// center display
 	init_cap_touch();
+	//init_vl53l0x();
 }
 
 void loop() {
 	// check the proxmimity sensor
+	process_prox_sensor();
 	
-	process_touch();
-
-	process_temp_reading();
-
-	process_light_reading();
-
-	process_oleds();
+	if (power_state) {
+		// digitalWrite(reg_en, HIGH);
+		process_touch();
+		process_temp_reading();
+		process_light_reading();
+		process_oleds();
 	// update oled64
 	// update the hozitonal oled32
+		process_tricorder_chase();
+		process_scanner_sound();
 
-	process_tricorder_chase();
-	process_scanner_sound();
+		process_serial_prints();
+	} else {
+		delay(1000); // should be a sleep
+	}
 
-	process_serial_prints();
 }

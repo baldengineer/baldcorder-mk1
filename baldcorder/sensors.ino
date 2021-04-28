@@ -1,8 +1,44 @@
 /* Created by James Lewis, 2021
 For element14 Present's Build Inside the Box Competiton
 MIT License
-Please see Acknowledgements.md for additional acks.
+Please see Acknowledgements.md for detailed acks.
 */
+
+void init_vl53l0x() {
+  Serial.print(F("Starting VL53L0X ..."));
+  if (!lox.begin()) {
+    Serial.println(F("Failed to boot VL53L0X"));
+    power_state = true;
+    // while(1); 
+  }
+  Serial.println(F("done!"));
+}
+
+void process_prox_sensor() {
+
+	VL53L0X_RangingMeasurementData_t measure;
+
+	if (millis() - last_prox_check >= prox_check_interval) {	
+
+	 	lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
+
+		if (measure.RangeStatus != 4) {  // phase failures have incorrect data
+			prox_reading = measure.RangeMilliMeter;
+		} else {
+			prox_reading -1;
+		}
+
+		if (prox_reading > prox_closed_threshold) {
+			// your flap is open and draining power
+			power_state = true;
+		} else {
+			power_state = false;
+		}
+
+		last_prox_check = millis();
+
+	}
+}
 
 void process_light_reading() {
 	if (millis() - last_light_read >= light_read_interval) {

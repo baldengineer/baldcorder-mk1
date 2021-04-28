@@ -1,7 +1,7 @@
 /* Created by James Lewis, 2021
 For element14 Present's Build Inside the Box Competiton
 MIT License
-Please see Acknowledgements.md for additional acks.
+Please see Acknowledgements.md for detailed acks.
 */
 
 void init_sdcard() {
