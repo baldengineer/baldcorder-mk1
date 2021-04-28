@@ -65,7 +65,9 @@ void setup() {
 	while ( (millis() < 3000) || (!Serial) );
 
 	init_sdcard(); // get ready for sound effects!
+
 	init_soundeffects();
+	init_gndn_blinky();
 
 	// vertical 128x32 (alpha, beta, gamma)
 	init_voled32();
@@ -83,12 +85,14 @@ void loop() {
 	process_touch();
 
 	process_temp_reading();
+
 	process_light_reading();
 
 	process_oleds();
 	// update oled64
 	// update the hozitonal oled32
 
+	process_tricorder_chase();
 	process_scanner_sound();
 
 	process_serial_prints();

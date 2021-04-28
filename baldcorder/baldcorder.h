@@ -99,6 +99,22 @@ Adafruit_SSD1306 voled32(OLED32_SCREEN_WIDTH, OLED32_SCREEN_HEIGHT, &SPI, OLED32
 //Adafruit_SSD1306 holed32(OLED32_SCREEN_WIDTH, OLED32_SCREEN_HEIGHT, &SPI, OLED32_DC, OLED32_RESET, HOLED32_CS);
 
 
+// ****************************
+// GNDN Blinky Lights
+// ****************************
+#include <Adafruit_NeoPixel.h>
+
+#define NEO_PIN   6
+#define NEO_COUNT 9
+
+uint8_t neo_brightness = 75; // remember, the battery!
+uint32_t neo_scan_speed = 45; // millisecond wait time
+uint32_t previous_neo_scan = 0;
+uint8_t pulser_step_size = 5;
+#define SCAN_COLOR strip.Color(0,127,0)
+
+Adafruit_NeoPixel strip(NEO_COUNT, NEO_PIN, NEO_GRB + NEO_KHZ800);
+
 
 // ****************************
 // Debug related stuff
