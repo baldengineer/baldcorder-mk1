@@ -4,22 +4,6 @@ MIT License
 Please see Acknowledgements.md for detailed acks.
 */
 
-/*
-struct touch_buttons {
-	Adafruit_FreeTouch touch;
-	bool last_state=false;
-	bool current_state=false;
-	int value=0;
-	bool pressed_once=false;
-} buttons[4];*/
-
-/*
-Adafruit_FreeTouch touch_up = Adafruit_FreeTouch(A2, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_down = Adafruit_FreeTouch(A3, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_okay = Adafruit_FreeTouch(A4, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-Adafruit_FreeTouch touch_cancel = Adafruit_FreeTouch(A5, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);*/
-
-
 void init_cap_touch() {
 	buttons[UP].touch     = Adafruit_FreeTouch(A2, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
 	buttons[DOWN].touch   = Adafruit_FreeTouch(A3, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);

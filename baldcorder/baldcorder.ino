@@ -12,19 +12,19 @@ Please see Acknowledgements.md for detailed acks.
 
 void process_serial_prints() {
 	if (millis() - print_last_millis >= print_interval) {
-		Serial.println("**************");
+		Serial.println("----------------");
 		Serial.print(F("Temp: "));
 		Serial.print(temp_reading);
 		Serial.println(F("C"));
 		Serial.print(F("Light: "));
 		Serial.println(light_reading);
 		Serial.print("Buttons: ");
-	/*	for(int x=0; x<4; x++) {
-			if (button_states[x] == true) {
-				//button_states[x] = false;
+		for (int x=0; x<4; x++) {
+			if (buttons[x].pressed_once == true) {
 				Serial.print(x);
+				buttons[x].pressed_once = false;
 			}
-		}*/
+		}
 		Serial.println("!");
 
 		Serial.flush();
@@ -34,7 +34,10 @@ void process_serial_prints() {
 
 void setup() { 
 	Serial.begin(115200);
-	while ( (millis() < 3000) || (!Serial) );
+
+//	while ( (millis() < 3000) || (!Serial) );
+//	delay(2500);
+	while (!Serial);
 
 	init_sdcard(); // get ready for sound effects!
 
@@ -51,19 +54,18 @@ void setup() {
 
 void loop() {
 	// check the proxmimity sensor
-	process_prox_sensor();
+	//process_prox_sensor();
 	
 	if (power_state) {
 		// digitalWrite(reg_en, HIGH);
 		process_touch();
 		process_temp_reading();
 		process_light_reading();
-		process_oleds();
+	//	process_oleds();
 	// update oled64
 	// update the hozitonal oled32
 		process_tricorder_chase();
 		process_scanner_sound();
-
 		process_serial_prints();
 	} else {
 		delay(1000); // should be a sleep

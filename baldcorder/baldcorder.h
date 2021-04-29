@@ -107,7 +107,7 @@ Adafruit_SSD1306 voled32(OLED32_SCREEN_WIDTH, OLED32_SCREEN_HEIGHT, &SPI, OLED32
 // ****************************
 #include <Adafruit_NeoPixel.h>
 
-#define NEO_PIN   6
+#define NEO_PIN   2
 #define NEO_COUNT 9
 
 uint8_t neo_brightness = 75; // remember, the battery!
