@@ -23,6 +23,25 @@ void init_voled32() {
   //print_oneline_1306(voled32, msg, SSD1306_WHITE);
 }
 
+
+//***********************
+// 128x32 (Horizontal Display) Temperature Read-Out
+//***********************
+void init_holed32() {
+  Serial.print(F("Init Hori OLED32 display..."));
+  if (!holed32.begin(SSD1306_SWITCHCAPVCC)) {
+    Serial.println(F("Horizontal OLED32 allocation failed"));
+    while(1);
+  }
+  Serial.println(F("Done!"));
+
+  holed32.setFont(&FreeSansBold18pt7b); // should be 35px high
+  holed32.clearDisplay();
+  holed32.display();
+  //char msg[] = {"Hello"};
+  //print_oneline_1306(voled32, msg, SSD1306_WHITE);
+}
+
 //***********************
 // 128x64 (Center Display)
 //***********************
@@ -36,6 +55,7 @@ void init_oled64() {
 
  // oled64.setFont(&FreeSansBold12pt7b); 
   oled64.setFont(&FreeSans9pt7b);
+  oled64.setRotation(2); // which way is up?
   oled64.clearDisplay();
   oled64.display();
  // char msg[] = {"Hello"};
@@ -65,10 +85,25 @@ void print_threeline_1306(Adafruit_SSD1306 *disp, char *line1, char *line2, char
   disp->clearDisplay();  
   disp->setTextColor(color1);
   disp->getTextBounds(line1, 0, 0, &x1, &y1, &w, &h); // how much space we need
-  disp->setCursor(0,h); // 0,0 is bottom left of text. 0,h is offsets enough for the text
+
+ /* disp->setCursor(4,h+2); // 0,0 is bottom left of text. offet accounts for bezel
+  disp->print(line1); 
+
+  disp->setCursor(4,(h+h+8)+2); // 0,0 is bottom left of text. offet accounts for bezel
+  disp->print(line2);
+
+  disp->setCursor(4,(h+h+h+8)+2); // 0,0 is bottom left of text. offet accounts for bezel
+  disp->print(line3);*/
+
+  disp->setCursor(0,h+2); // 0,0 is bottom left of text. offet accounts for bezel
+  disp->print(" ");
   disp->println(line1); 
-  disp->println(line2);
-  disp->print(line3);
+  disp->print(" ");
+  disp->println(line2); 
+  disp->print(" ");
+  disp->print(line3); 
+
+
 //  AudioPlayer.criticalON();
   disp->display();
 //  AudioPlayer.criticalOFF();
@@ -93,14 +128,22 @@ void process_oleds() {
     char msg1[16];
     char msg2[16];
     char msg3[16];
-      
-    if (vert_state == TEMPATURE_DISPLAY) {
+
+    // horizontal
+    dtostrf(temp_reading, 5, 2, msg1);
+    print_oneline_1306(&holed32, msg1, SSD1306_WHITE);      
+
+    // vertical
+   int graphy = map(light_reading, 0, 1024, 0, 100);
+   draw_bargraph(&voled32, graphy, SSD1306_WHITE);      
+/*  if (vert_state == TEMPATURE_DISPLAY) {
       dtostrf(temp_reading, 5, 2, msg1);
-        print_oneline_1306(&voled32, msg1, SSD1306_WHITE);        
+        print_oneline_1306(&holed32, msg1, SSD1306_WHITE);        
       } else {
       int graphy = map(light_reading, 0, 1024, 0, 100);
-        draw_bargraph(&voled32, graphy, SSD1306_WHITE);
+        draw_bargraph(&holed32, graphy, SSD1306_WHITE);
     }
+*/
   //  if (button_states[2] == true) 
   //    vert_state = !vert_state;
     

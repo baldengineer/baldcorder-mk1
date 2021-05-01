@@ -35,9 +35,9 @@ void process_serial_prints() {
 void setup() { 
 	Serial.begin(115200);
 
-//	while ( (millis() < 3000) || (!Serial) );
+	while ( (millis() < 3000) && (!Serial) );
 //	delay(2500);
-	while (!Serial);
+//	while (!Serial);
 
 	init_sdcard(); // get ready for sound effects!
 
@@ -45,8 +45,7 @@ void setup() {
 	init_gndn_blinky();
 
 	init_voled32(); 	// vertical 128x32 (alpha, beta, gamma)
-	// horzitonal 128x32 (geo, med, )
-	// TODO: Up there, that one!!
+	init_holed32(); 	// vertical 128x32 (alpha, beta, gamma)
 	init_oled64(); 	// center display
 	init_cap_touch();
 	//init_vl53l0x();
@@ -61,7 +60,7 @@ void loop() {
 		process_touch();
 		process_temp_reading();
 		process_light_reading();
-	//	process_oleds();
+		process_oleds();
 	// update oled64
 	// update the hozitonal oled32
 		process_tricorder_chase();
