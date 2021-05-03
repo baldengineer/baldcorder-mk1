@@ -10,6 +10,11 @@ void init_gndn_blinky() {
   strip.setBrightness(neo_brightness); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
+void turn_off_neopixels() {
+  strip.clear();
+  strip.show();
+}
+
 void process_tricorder_chase() {
   // based on the Adafruit theatreChase() example, converted to use millis() by James
   static uint8_t beat_counter = 0;
@@ -50,7 +55,7 @@ void process_tricorder_chase() {
     // clamp the color selector
     if (pulser_color >= 3)
       pulser_color =0;
- 
+
     switch (pulser_color) {
       case 0:
         // red
@@ -68,8 +73,10 @@ void process_tricorder_chase() {
     }
 
 
-
+    AudioPlayer.criticalON();
     strip.show(); // Update strip with new contents
+    AudioPlayer.criticalOFF();
+
     previous_neo_scan = millis();
   }
 }

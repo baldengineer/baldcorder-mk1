@@ -31,11 +31,16 @@ void process_touch() {
 			buttons[x].current_state = false;
 		}
 		// has the button been pressed down?
+		any_press = false;
 		if (buttons[x].last_state != buttons[x].current_state) {
 			if (buttons[x].current_state == true) {
 				// pressed the button
 				buttons[x].pressed_once = true;
+				any_press = true;
 			}
+		}
+		if (any_press) {
+			play_soundeffects();
 		}
 	}
 }

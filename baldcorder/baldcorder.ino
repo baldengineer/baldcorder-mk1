@@ -18,7 +18,7 @@ void process_serial_prints() {
 		Serial.println(F("C"));
 		Serial.print(F("Light: "));
 		Serial.println(light_reading);
-		Serial.print("Buttons: ");
+		Serial.print("Buttons: "); // doesn't work, using pressed_once now.
 		for (int x=0; x<4; x++) {
 			if (buttons[x].pressed_once == true) {
 				Serial.print(x);
@@ -32,12 +32,26 @@ void process_serial_prints() {
 	}
 }
 
+void power_change() {
+	if (power_state) {
+		digitalWrite(enable_5v_pin, HIGH);
+	} else {
+		digitalWrite(enable_5v_pin, LOW);
+	}
+}
+
 void setup() { 
+	pinMode(enable_5v_pin, OUTPUT);
+	power_state = false; // turn off the regulator
+	power_change();
 	Serial.begin(115200);
 
-	while ( (millis() < 3000) && (!Serial) );
+//	while ( (millis() < 3000) && (!Serial) );
 //	delay(2500);
-//	while (!Serial);
+	while (!Serial);
+
+	power_state = true; // turn on the regulator
+	power_change();
 
 	init_sdcard(); // get ready for sound effects!
 
@@ -48,15 +62,16 @@ void setup() {
 	init_holed32(); 	// vertical 128x32 (alpha, beta, gamma)
 	init_oled64(); 	// center display
 	init_cap_touch();
-	//init_vl53l0x();
+	init_vl53l0x();
 }
 
 void loop() {
 	// check the proxmimity sensor
-	//process_prox_sensor();
+	process_prox_sensor();
+//	power_state = true;
 	
 	if (power_state) {
-		// digitalWrite(reg_en, HIGH);
+	//	power_change();
 		process_touch();
 		process_temp_reading();
 		process_light_reading();
@@ -67,6 +82,13 @@ void loop() {
 		process_scanner_sound();
 		process_serial_prints();
 	} else {
+	//	power_change();
+		turn_off_oled(&voled32);
+		turn_off_oled(&holed32);
+		turn_off_oled(&oled64);
+		turn_off_neopixels();
+
+		
 		delay(1000); // should be a sleep
 	}
 

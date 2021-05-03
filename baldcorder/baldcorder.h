@@ -11,7 +11,12 @@ Please see Acknowledgements.md for additional acks.
 #include <SPI.h>
 #include <avr/dtostrf.h>
 
+
+const uint8_t enable_5v_pin = 1;
 bool power_state = true;
+bool previous_power_state = false;
+bool any_press = false; // to detect any button press
+
 
 // ****************************
 // Sound Libraries
@@ -25,6 +30,8 @@ SamdAudio AudioPlayer;
 const unsigned int sampleRate = 22050; //hz - for 1s file it is 40960
 const char *scanning_sound = "tng_14m.wav";
 #define YOUR_SD_CS 28 // CS on MKRZERO is "pin" 28
+bool force_playing_sound = false;
+bool soundeffects_are_active = false;
 
 unsigned long scanning_last_played = 0;
 unsigned long scanning_sound_interval = (1000UL * 60UL * 10UL);
@@ -110,8 +117,8 @@ Adafruit_SSD1306 holed32(OLED32_SCREEN_WIDTH, OLED32_SCREEN_HEIGHT, &SPI, OLED32
 #define NEO_PIN   2
 #define NEO_COUNT 9
 
-uint8_t neo_brightness = 75; // remember, the battery!
-uint32_t neo_scan_speed = 45; // millisecond wait time
+uint8_t neo_brightness = 128; // remember, the battery!
+uint32_t neo_scan_speed = 100; // millisecond wait time
 uint32_t previous_neo_scan = 0;
 uint8_t pulser_step_size = 5;
 #define SCAN_COLOR strip.Color(0,127,0)

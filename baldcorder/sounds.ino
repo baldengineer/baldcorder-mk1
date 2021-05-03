@@ -14,6 +14,14 @@ void init_sdcard() {
 	Serial.println(F("Done!"));
 }
 
+void play_soundeffects() {
+	if (soundeffects_are_active == false) {
+		AudioPlayer.play(scanning_sound, 1);
+		scanning_last_played = millis();
+		soundeffects_are_active = true;
+	}
+}
+
 void init_soundeffects() {
 	Serial.print(F("Initializing Audio Player..."));
 	if (AudioPlayer.begin(sampleRate, NUM_AUDIO_CHANNELS, AUDIO_BUFFER_SIZE) == -1)   {
@@ -26,8 +34,10 @@ void init_soundeffects() {
 }
 
 void process_scanner_sound() {
-	if (millis() - scanning_last_played >= scanning_sound_interval) {
+	if (force_playing_sound || (millis() - scanning_last_played >= scanning_sound_interval)) {
 		AudioPlayer.play(scanning_sound, 1); // should 10min file..
 		scanning_last_played = millis();
+		force_playing_sound = false;
+		soundeffects_are_active = true;
 	}
 }

@@ -31,9 +31,18 @@ void process_prox_sensor() {
 		if (prox_reading > prox_closed_threshold) {
 			// your flap is open and draining power
 			power_state = true;
+			/*if (power_state != previous_power_state) {
+				force_playing_sound = true;
+			}*/
 		} else {
 			power_state = false;
+			if (power_state != previous_power_state) {
+				AudioPlayer.stopChannel(1);
+				soundeffects_are_active = false;
+			}
 		}
+
+		previous_power_state = power_state;
 
 		last_prox_check = millis();
 

@@ -121,6 +121,11 @@ void draw_bargraph(Adafruit_SSD1306 *disp, int amt, int color) {
   disp->display();
 }
 
+void turn_off_oled(Adafruit_SSD1306 *disp) {
+  disp->clearDisplay();
+  disp->display();
+}
+
 void process_oleds() {
   static bool vert_state = TEMPATURE_DISPLAY;
   if (millis() - oled_last_update >= oled_update_interval) {
