@@ -36,10 +36,11 @@ void process_prox_sensor() {
 			}*/
 		} else {
 			power_state = false;
-			if (power_state != previous_power_state) {
-				AudioPlayer.stopChannel(1);
-				soundeffects_are_active = false;
-			}
+		//	if (power_state != previous_power_state) {
+				//AudioPlayer.stopChannel(1);
+				//soundeffects_are_active = false;
+				stop_soundeffects();
+		//	}
 		}
 
 		previous_power_state = power_state;

@@ -14,6 +14,20 @@ void init_sdcard() {
 	Serial.println(F("Done!"));
 }
 
+void toggle_soundeffects() {
+	if (soundeffects_are_active) 
+		stop_soundeffects();
+	else
+		play_soundeffects();
+}
+
+void stop_soundeffects() {
+	if (soundeffects_are_active) {
+		AudioPlayer.stopChannel(1);
+		soundeffects_are_active = false;		
+	}
+}
+
 void play_soundeffects() {
 	if (soundeffects_are_active == false) {
 		AudioPlayer.play(scanning_sound, 1);
