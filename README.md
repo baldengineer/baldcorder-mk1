@@ -1,5 +1,7 @@
 # Build Inside the Box Competition for element14 Presents
 
+![Bald Engineer holding the Baldcorder](/images/baldengineer-with-baldcorder.jpg)
+
 To celebrate element14 Presents' 500th build episode, they are challenged three of the video hosts to build a a project using 6 components.
 
 I have to use all of these components, but can add others.
