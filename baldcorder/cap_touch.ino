@@ -15,8 +15,8 @@ Please see Acknowledgements.md for detailed acks.
 // CANCEL = A3
 
 void init_cap_touch() {
-	buttons[DOWN].touch   = Adafruit_FreeTouch(A4, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
-	buttons[UP].touch = Adafruit_FreeTouch(A5, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
+	buttons[DOWN].touch     = Adafruit_FreeTouch(A4, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
+	buttons[UP].touch       = Adafruit_FreeTouch(A5, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
 	buttons[CANCEL].touch   = Adafruit_FreeTouch(A3, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
 	buttons[OKAY].touch     = Adafruit_FreeTouch(A2, OVERSAMPLE_4, RESISTOR_50K, FREQ_MODE_NONE);
 
